@@ -7,11 +7,14 @@ import { ThemedView } from '@/components/themed-view';
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 
 import { useIsFocused } from "@react-navigation/native";
+import { useRouter } from 'expo-router';
+
 
 import { Image } from "expo-image";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function CreateNoteScreen() {
+export default function PictureTakingScreen() {
+  const router = useRouter();
 
   const [permission, requestPermission] = useCameraPermissions();
   const isFocused = useIsFocused();
@@ -78,9 +81,7 @@ export default function CreateNoteScreen() {
       <ThemedView
         style={{ 
           flex: 1, 
-          
-          backgroundColor: 'pink',  //for testing only
-
+          backgroundColor: 'pink',   //for testing only
         }}
       >
 
@@ -108,7 +109,6 @@ export default function CreateNoteScreen() {
                   title='p'
                   onPress={takeOnePicture}
                 ></Button>
-
               </TouchableOpacity>
               </View>
 
@@ -122,35 +122,56 @@ export default function CreateNoteScreen() {
 
   function Step2PhotoViewing() {
     return (
-      <ThemedView>
+      <ThemedView
+        style={{
+          paddingTop: 50
+        }}
+      >
+
+        <Button 
+            onPress={() => {
+              seturi("")
+              setNoteCreationPhase(1);
+            }
+
+            } 
+            title="Retake"
+        />
 
         <Image
           source={{ uri }}
-          contentFit="contain"
-          style={{ height: 300, width: 300, aspectRatio: 1, backgroundColor: 'purple' }}
+          style={{ 
+            height: 640,
+            width: 360,
+            backgroundColor: 'purple'   //for testing only
+          }}
         />
-        <Button 
-          onPress={() => {
-            seturi("")
-            setNoteCreationPhase(1);
-          }
 
-          } 
-          title="Retake"
-        />
+
+       
+        <Button
+          onPress={()=>{
+            router.navigate('../notecreation');
+          }}
+          title="Next"
+        ></Button>
+       
+
+        
  
       </ThemedView>
     );
   }
 
 
+
   return (
     <>
-      {(uri === "")
+      {uri === ""
       &&
       <Step1PhotoTaking/>}
 
-      {(uri !== "")
+      {uri !== ""
       && 
       <Step2PhotoViewing
       />}
