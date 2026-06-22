@@ -37,17 +37,20 @@ export default function TabTwoScreen() {
 
 
   return (
-    <ThemedView>
-      <ThemedView style={styles.titleContainer}>
+
+      <ThemedView
+      style={{ flex: 1, backgroundColor: 'green' }}
+        >
         <ThemedText
           type="title"
           style={{
-            fontFamily: Fonts.rounded,
+            fontFamily: Fonts.rounded
           }}>
           Add Note
         </ThemedText>
 
-          <CameraView facing={camFacing} />
+          <CameraView facing={camFacing} style={{ flex: 1, backgroundColor: 'red' }}/>
+          
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
               <Text style={styles.text}>Flip Camera</Text>
@@ -56,7 +59,5 @@ export default function TabTwoScreen() {
 
       </ThemedView>
    
-
-    </ThemedView>
   );
 }
