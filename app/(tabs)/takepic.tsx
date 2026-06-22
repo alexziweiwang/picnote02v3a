@@ -1,6 +1,5 @@
 
 import { useRef, useState } from "react";
-import styles from '../styles.css';
 
 import { ThemedView } from '@/components/themed-view';
 
@@ -37,14 +36,10 @@ export default function PictureTakingScreen() {
     return (
       <View 
         style={[styles.container, 
-          { paddingTop: 100, 
-            paddingLeft: 20, 
-            paddingRight: 20, 
-            paddingBottom: 20
-          }
+          styles.thickFrame
         ]}
       >
-        <Text style={styles.message}>Permission needed to show the camera</Text>
+        <Text>Permission needed to show the camera</Text>
         <Button onPress={requestPermission} title="grant permission"/>
       </View>
     );
@@ -151,7 +146,10 @@ export default function PictureTakingScreen() {
        
         <Button
           onPress={()=>{
-            router.navigate('../notecreation');
+            router.push({
+              pathname: '../notecreation',
+              params: {uri: uri }
+            });
           }}
           title="Next"
         ></Button>
@@ -179,3 +177,28 @@ export default function PictureTakingScreen() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+
+thickFrame: {
+    paddingTop: 100, 
+    paddingLeft: 20, 
+    paddingRight: 20, 
+    paddingBottom: 20
+},
+
+container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+},
+
+overlay: {
+    position: 'absolute',
+    width: '100%',
+    alignItems: 'center',
+},
+
+
+});

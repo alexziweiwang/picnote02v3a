@@ -1,6 +1,7 @@
+import { StyleSheet } from "react-native";
+
 import { PropsWithChildren, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-import styles from '../../app/styles.css';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -32,3 +33,21 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
     </ThemedView>
   );
 }
+
+
+
+
+const styles = StyleSheet.create({
+
+heading: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+},
+
+content2: {
+    marginTop: 6,
+    marginLeft: 24,
+},
+
+});

@@ -1,8 +1,9 @@
-import styles from '../styles.css';
+import { StyleSheet } from "react-native";
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Fonts } from '@/constants/theme';
+
 
 export default function HomeScreen() {
   return (
@@ -17,7 +18,7 @@ export default function HomeScreen() {
       }}
 
     >
-      <ThemedView style={styles.titleContainer}>
+      <ThemedView style={style.titleContainer}>
           <ThemedText
             type="title"
             style={{
@@ -30,3 +31,13 @@ export default function HomeScreen() {
     </ThemedView>
   );
 }
+const style = StyleSheet.create({
+
+  titleContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      flex: 1,
+  },
+
+});
