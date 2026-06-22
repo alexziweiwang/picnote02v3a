@@ -1,0 +1,91 @@
+
+.titleContainer {
+    flex-direction: 'row';
+    align-items: 'center';
+    gap: 8;
+}
+
+.headerImage {
+    color: '#808080';
+    bottom: -90;
+    left: -35;
+    position: 'absolute';
+}
+
+.stepContainer {
+    gap: 8;
+    margin-bottom: 8;
+}
+
+.reactLogo {
+    height: 178;
+    width: 290;
+    bottom: 0;
+    left: 0;
+    position: 'absolute';
+}
+
+.container {
+    flex: 1;
+    align-items: 'center';
+    justify-content: 'center';
+    padding: 20;
+}
+
+link1 {
+    margin-top: 15;
+    padding-top: 15;
+    padding-bottom: 15;
+
+}
+
+.header {
+    height: HEADER_HEIGHT;
+    overflow: 'hidden';
+}
+
+.content {
+    flex: 1;
+    padding: 32;
+    gap: 16;
+    overflow: 'hidden';
+}
+
+.default {
+    font-size: 16;
+    line-height: 24;
+}
+
+.defaultSemiBold {
+    font-size: 16;
+    line-height: 24;
+    font-weight: '600';
+}
+
+.title {
+    font-size: 32;
+    font-weight: 'bold';
+    line-height: 32;
+}
+
+.subtitle {
+    font-size: 20;
+    font-weight: 'bold';
+}
+
+.link2 {
+    line-height: 30;
+    font-size: 16;
+    color: '#0a7ea4';
+}
+
+.heading {
+    flex-direction: 'row';
+    align-items: 'center';
+    gap: 6;
+}
+
+.content2 {
+    margin-top: 6;
+    margin-left: 24;
+}

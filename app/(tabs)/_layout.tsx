@@ -22,7 +22,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="takepic"
         options={{
           title: 'Create',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="camera" color={color} />,
