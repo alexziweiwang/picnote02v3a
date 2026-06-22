@@ -7,7 +7,14 @@ import { Fonts } from '@/constants/theme';
 export default function HomeScreen() {
   return (
     <ThemedView
-      style={{ flex: 1, backgroundColor: 'green', paddingTop: 100, paddingLeft: 20, paddingRight: 20, paddingBottom: 20}}
+      style={{ 
+        flex: 1, 
+        backgroundColor: 'green',
+        paddingTop: 100, 
+        paddingLeft: 20, 
+        paddingRight: 20, 
+        paddingBottom: 20
+      }}
 
     >
       <ThemedView style={styles.titleContainer}>

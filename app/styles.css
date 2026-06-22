@@ -90,3 +90,9 @@ link1 {
     margin-top: 6;
     margin-left: 24;
 }
+
+.overlay {
+    position: "absolute";
+    width: "100%";
+    align-items: "center";
+}

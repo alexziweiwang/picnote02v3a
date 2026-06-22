@@ -3,22 +3,24 @@ import { useState } from 'react';
 import styles from '../styles.css';
 
 
-import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Fonts } from '@/constants/theme';
 
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 
+import { useIsFocused } from "@react-navigation/native";
 
-import { Button, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 
 export default function TabTwoScreen() {
 
 
-  const [camFacing, setCamFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
+  const isFocused = useIsFocused();
+
   const [openCam, setOpenCam] = useState<boolean>(false);
+  const [camFacing, setCamFacing] = useState<CameraType>('back');
+  
 
   if (!permission) { //loading
     return <View />;
@@ -41,46 +43,55 @@ export default function TabTwoScreen() {
   return (
 
       <ThemedView
-        style={{ flex: 1, backgroundColor: 'grey', paddingTop: 100, paddingLeft: 20, paddingRight: 20, paddingBottom: 20}}
-        >
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
- 
-          }}>
-          Add Note
-        </ThemedText>
+        style={{ 
+          flex: 1, 
+          
+          backgroundColor: 'pink',  //for testing only
 
-          {openCam && 
-            <CameraView 
-              facing={camFacing} 
-              style={{ 
-                flex: 1, 
-                backgroundColor: 'red' 
-              }}/>
-          }
-          {!openCam && 
-            <View 
-              style={{ 
-                flex: 1, 
-                backgroundColor: 'orange' 
-              }}
-            >
+        }}
+      >
+
+          {isFocused ? (
+            
+            <>
+              <CameraView 
+                facing={camFacing} 
+                style={StyleSheet.absoluteFill}
+                />
+
+              <View 
+                style={
+                  [styles.overlay, 
+                  {paddingTop: 100, 
+                  paddingLeft: 20, 
+                  paddingRight: 20, 
+                  paddingBottom: 20}
+                ]}
+              >
+
+                
+              <TouchableOpacity 
+                 
+              >
                 <Button 
-                  onPress={()=>{setOpenCam(true)}} 
-                  title='Take a Picture'
+                  title='p'
+                  // onPress={}   TODO
                 ></Button>
 
-            </View>
-          }
-          
-          <View>
-            <Button onPress={toggleCameraFacing} title='Flip Camera'>
- 
-            </Button>
-            {openCam && <Button title='Close Camera' onPress={()=>{setOpenCam(false)}}></Button>}
-          </View>
+              </TouchableOpacity>
+              </View>
+
+
+            </>
+          ) : null}
+
+
+
+
+
+
+
+
 
       </ThemedView>
    
