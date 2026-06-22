@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
-import { Button, Text, TextInput, View } from 'react-native';
+import { Button, Keyboard, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 
 export default function NoteCreationScreen() {
 
@@ -14,16 +14,61 @@ export default function NoteCreationScreen() {
     const [titleInput, setTitleInput] = useState<string>();
     const [noteInput, setNoteInput] = useState<string>();
 
+
+    function saveNote() {
+
+        //TODO
+
+        //imageUri
+        //titleInput
+        //noteInput
+    }
+
     return (
         <>
+
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>  
+
+
         <View 
             style={{
                 backgroundColor: 'white'
             }}
         >
-         {imageUri && 
+
+                    <>
+        <Text>
+            Title
+        </Text>
+
+        <TextInput
+            style={[styles.inputFrameDefault, styles.inputFrameSgl]}
+            onChangeText={setTitleInput}
+            value={titleInput}
+        />
+
+        <Text>
+            Note
+        </Text>
+
+        <TextInput
+            style={[styles.inputFrameDefault, styles.inputFrameMul]}
+            onChangeText={setNoteInput}
+            value={noteInput}
+            multiline
+        />
+
+        <Button 
+            title='save'
+            onPress={saveNote}   
+        ></Button>
+        </>
+
+
+
+        {imageUri && 
          <Image
-            source={uri} 
+            source={imageUri} 
             contentFit="contain"
             style={{ 
                 height: 480,
@@ -31,30 +76,13 @@ export default function NoteCreationScreen() {
             }}
         />}
 
-        <Text>
-            ...
-        </Text>
 
-        <TextInput
-            style={styles.inputFrame}
-            onChangeText={setTitleInput}
-            value={titleInput}
-        />
 
-        <TextInput
-            style={styles.inputFrame}
-            onChangeText={setNoteInput}
-            value={noteInput}
-        />
 
-        <Button 
-            title='save'
-            onPress={()=>{
-                //TODO
-            }}   
-        ></Button>
-        
         </View>
+        
+
+        </TouchableWithoutFeedback>
     
         </>
     )
@@ -62,10 +90,18 @@ export default function NoteCreationScreen() {
 }
 
 const styles = StyleSheet.create({
-    inputFrame: {
-        height: 30,
+    inputFrameDefault: {
         borderWidth: 2,
         borderColor: 'pink',
+    },
+    
+    inputFrameSgl: {
+        height: 30,
+
+    },
+
+    inputFrameMul: {
+        height: 110,
     },
 
 });
