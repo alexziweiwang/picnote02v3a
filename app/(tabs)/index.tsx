@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import styles from '../styles.css';
 
 import { ThemedText } from '@/components/themed-text';
@@ -7,7 +6,10 @@ import { Fonts } from '@/constants/theme';
 
 export default function HomeScreen() {
   return (
-    <ThemedView>
+    <ThemedView
+      style={{ flex: 1, backgroundColor: 'green', paddingTop: 100, paddingLeft: 20, paddingRight: 20, paddingBottom: 20}}
+
+    >
       <ThemedView style={styles.titleContainer}>
           <ThemedText
             type="title"

@@ -9,7 +9,8 @@ import { Fonts } from '@/constants/theme';
 
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 
-import { Button, Text, TouchableOpacity, View } from 'react-native';
+
+import { Button, Text, View } from 'react-native';
 
 
 export default function TabTwoScreen() {
@@ -17,6 +18,7 @@ export default function TabTwoScreen() {
 
   const [camFacing, setCamFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
+  const [openCam, setOpenCam] = useState<boolean>(false);
 
   if (!permission) { //loading
     return <View />;
@@ -39,22 +41,45 @@ export default function TabTwoScreen() {
   return (
 
       <ThemedView
-      style={{ flex: 1, backgroundColor: 'green' }}
+        style={{ flex: 1, backgroundColor: 'grey', paddingTop: 100, paddingLeft: 20, paddingRight: 20, paddingBottom: 20}}
         >
         <ThemedText
           type="title"
           style={{
-            fontFamily: Fonts.rounded
+            fontFamily: Fonts.rounded,
+ 
           }}>
           Add Note
         </ThemedText>
 
-          <CameraView facing={camFacing} style={{ flex: 1, backgroundColor: 'red' }}/>
+          {openCam && 
+            <CameraView 
+              facing={camFacing} 
+              style={{ 
+                flex: 1, 
+                backgroundColor: 'red' 
+              }}/>
+          }
+          {!openCam && 
+            <View 
+              style={{ 
+                flex: 1, 
+                backgroundColor: 'orange' 
+              }}
+            >
+                <Button 
+                  onPress={()=>{setOpenCam(true)}} 
+                  title='Take a Picture'
+                ></Button>
+
+            </View>
+          }
           
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-              <Text style={styles.text}>Flip Camera</Text>
-            </TouchableOpacity>
+          <View>
+            <Button onPress={toggleCameraFacing} title='Flip Camera'>
+ 
+            </Button>
+            {openCam && <Button title='Close Camera' onPress={()=>{setOpenCam(false)}}></Button>}
           </View>
 
       </ThemedView>
