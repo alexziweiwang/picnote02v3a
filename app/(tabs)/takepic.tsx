@@ -12,6 +12,9 @@ import { useRouter } from 'expo-router';
 import { Image } from "expo-image";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+/*
+  A tab that starts the camera to take a photo, view, and retake
+*/
 export default function PictureTakingScreen() {
   const router = useRouter();
 
@@ -27,7 +30,6 @@ export default function PictureTakingScreen() {
 
   const [noteCreationPhase, setNoteCreationPhase] = useState<Number>(1);
   
-
   if (!permission) { //loading
     return <View/>;
   }
