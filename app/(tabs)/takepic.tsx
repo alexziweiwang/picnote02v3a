@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 
 import { ThemedView } from '@/components/themed-view';
 
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 
 import { useIsFocused } from "@react-navigation/native";
@@ -93,7 +94,7 @@ export default function PictureTakingScreen() {
               <View 
                 style={
                   [styles.overlay, 
-                  {paddingTop: 100, 
+                  {paddingTop: 200, 
                   paddingLeft: 20, 
                   paddingRight: 20, 
                   paddingBottom: 20}
@@ -101,11 +102,16 @@ export default function PictureTakingScreen() {
               >
 
                 
-              <TouchableOpacity>
-                <Button 
-                  title='p'
-                  onPress={takeOnePicture}
-                ></Button>
+              <TouchableOpacity
+                style={{paddingTop: 410}}
+              >
+          
+                <MaterialIcons 
+                  color='light' 
+                  size={50} 
+                  name='camera'
+                  onPress={takeOnePicture}  
+                />
               </TouchableOpacity>
               </View>
 
@@ -121,7 +127,8 @@ export default function PictureTakingScreen() {
     return (
       <ThemedView
         style={{
-          paddingTop: 50
+          paddingTop: 50,
+          alignItems: 'center'
         }}
       >
 

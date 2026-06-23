@@ -25,7 +25,8 @@ export default function NoteDetail() {
                     paddingTop: 70, 
                     paddingLeft: 20, 
                     paddingRight: 20, 
-                    paddingBottom: 20
+                    paddingBottom: 20,
+                    alignItems: 'center'
                 }}
                         
             >
@@ -40,7 +41,7 @@ export default function NoteDetail() {
                   <View>
                     <Text>Title: {title}</Text>
                     <Text>Note: {note}</Text>
-                    <Text>Date: {new Date(creation_date).toLocaleString()}</Text>
+                    <Text>Date: {new Date(Number(creation_date)).toLocaleString()}</Text>
 
                     <Button title='delete' onPress={()=>{deleteNote()}}></Button>
                   </View>

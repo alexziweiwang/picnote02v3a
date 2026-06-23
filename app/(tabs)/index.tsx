@@ -85,23 +85,28 @@ export default function HomeScreen() {
           }}>
             My Notes</ThemedText>
 
-          <ThemedView>
+          <ThemedView
+          
+            style={{
+              margin: 10,
+              overflow: 'scroll',
+            }}
+          >
 
             <FlatList
               data={myNoteList}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
+
                 <View
                   style={{
                     "borderRadius": 2,
                     "borderColor": "white",
-                    "height": 200,
+                    "height": 210,
                     "backgroundColor": "pink",
                     "margin": 5,
                     "padding": 5,
                     "flexDirection": "row",
-                                        "overflow": "scroll"
-
 
                   }}
                 >
@@ -113,7 +118,15 @@ export default function HomeScreen() {
                     resizeMode='contain'
                   />
 
-                  <View>
+                  <View
+                    style={{  
+                      width: 200,
+                      margin: 3,
+                      overflow: 'scroll',
+                      
+
+                    }}
+                  >
                     <Text>Title: {item.title}</Text>
                     <Text>Note: {item.note}</Text>
                     <Text>Date: {new Date(item.creation_date).toLocaleString()}</Text>

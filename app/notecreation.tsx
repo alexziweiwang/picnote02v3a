@@ -69,6 +69,8 @@ console.log("!!!!!!!!!!!!!!!!!!!!", info);
     }
 
     function saveToDatabase(title: string, note: string, picLink: string, dateInfo: Number) {
+
+
         db.execSync(`
             CREATE TABLE IF NOT EXISTS notelist (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -104,7 +106,8 @@ console.log("!!!!!!!!!!!!!!!!!!!!", info);
 
             <View 
                 style={{
-                    backgroundColor: 'white'
+                    backgroundColor: 'grey',
+                    padding: 20
                 }}
             >
 
@@ -139,7 +142,10 @@ console.log("!!!!!!!!!!!!!!!!!!!!", info);
 
 
 
-        {imageUri && 
+        {imageUri &&
+        <View
+            style={{alignItems: 'center'}}
+        > 
          <Image
             source={imageUri} 
             contentFit="contain"
@@ -147,7 +153,9 @@ console.log("!!!!!!!!!!!!!!!!!!!!", info);
                 height: 480,
                 width: 270,
             }}
-        />}
+        />
+        </View>
+        }
 
 
 
@@ -165,7 +173,8 @@ console.log("!!!!!!!!!!!!!!!!!!!!", info);
 const styles = StyleSheet.create({
     inputFrameDefault: {
         borderWidth: 2,
-        borderColor: 'pink',
+        borderColor: 'white',
+        margin: 5
     },
     
     inputFrameSgl: {
@@ -174,7 +183,7 @@ const styles = StyleSheet.create({
     },
 
     inputFrameMul: {
-        height: 110,
+        height: 60,
     },
 
 });
