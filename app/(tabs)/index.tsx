@@ -1,5 +1,4 @@
-import { useFocusEffect } from "expo-router";
-import { useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from "expo-router";
 
 import { useState } from "react";
 
@@ -22,6 +21,7 @@ export default function HomeScreen() {
 
   const [myNoteList, setMyNoteList] = useState<Note[]>();
 
+  const [sortOption, setSortOption] = useState<string>("date_latest");
 
   useFocusEffect(
     useCallback(() => {
@@ -38,23 +38,51 @@ export default function HomeScreen() {
   };
 
   function fetchNotesFromDatabase() {
-    const res = db.getAllSync<Note>(`
+    let res = db.getAllSync<Note>(`
       SELECT id, image_uri, title, note, creation_date
-      FROM notelist
-      ORDER BY creation_date DESC;
+      FROM notelist;
     `);
 
+    res.sort((a, b) => b.creation_date - a.creation_date);
     setMyNoteList(res);
+  }
 
-    
+  function filterChange(propertyRequired: string) {
+    let tempList = myNoteList;
+
+    if (tempList === undefined) {
+      return;
+    }
+
+    if (propertyRequired === 'date_earliest') {
+      tempList.sort((a, b) => a.creation_date - b.creation_date);
+    } else if (propertyRequired === 'date_latest') {
+      tempList.sort((a, b) => b.creation_date - a.creation_date);
+    }
+
+    setMyNoteList(tempList);
+  }
+
+  function changeSortingOption() {
+    if (sortOption === 'date_earliest') {
+      filterChange('date_latest');
+      setSortOption('date_latest');
+      console.log("become late first");
+    }
+    if (sortOption === 'date_latest') {
+      filterChange('date_earliest');
+      setSortOption('date_earliest');
+      console.log("become early first");
+    }
+
   }
 
   function enterNoteDetail(item: Note) {
-    //TODO with the item's info, into 
 
     router.push({
       pathname: '../notedetail',
       params: {
+        item_id: item.id,
         image_uri: item.image_uri, 
         title: item.title, 
         note: item.note, 
@@ -63,16 +91,17 @@ export default function HomeScreen() {
     });
   }
 
-
+ function devReset(db: any) {
+  db.runSync("DROP TABLE IF EXISTS notes");
+}
 
   return (
     <ThemedView
       style={{ 
         flex: 1, 
-        backgroundColor: 'green',
-        paddingTop: 70, 
-        paddingLeft: 20, 
-        paddingRight: 20, 
+        paddingTop: 60, 
+        paddingLeft: 10, 
+        paddingRight: 10, 
         paddingBottom: 20
       }}
 
@@ -85,11 +114,25 @@ export default function HomeScreen() {
           }}>
             My Notes</ThemedText>
 
+          <View>
+            
+            <Button title='TEST: clear all'
+              onPress={devReset}
+            ></Button>
+            
+          </View>
+
+          <View
+            style={{marginLeft: 290}}
+          >  
+            <Button title='Sort' onPress={changeSortingOption}></Button>
+          </View>
+
+
           <ThemedView
-          
             style={{
               margin: 10,
-              overflow: 'scroll',
+              flex: 1
             }}
           >
 
@@ -103,11 +146,11 @@ export default function HomeScreen() {
                     "borderRadius": 2,
                     "borderColor": "white",
                     "height": 210,
-                    "backgroundColor": "pink",
+                    "backgroundColor": "#859299",
                     "margin": 5,
                     "padding": 5,
                     "flexDirection": "row",
-
+                    
                   }}
                 >
                   <Image 
@@ -123,15 +166,21 @@ export default function HomeScreen() {
                       width: 200,
                       margin: 3,
                       overflow: 'scroll',
-                      
-
                     }}
                   >
                     <Text>Title: {item.title}</Text>
-                    <Text>Note: {item.note}</Text>
+                    <Text>Note: {item.note?.length > 0 ? item.note : "(Empty Note)"}</Text>
                     <Text>Date: {new Date(item.creation_date).toLocaleString()}</Text>
 
-                    <Button title='detail' onPress={()=>{enterNoteDetail(item)}}></Button>
+                    <View
+                      style={{
+                        marginTop: 110,
+                        marginLeft: 120
+                      }}
+                    >
+                      <Button title='detail' onPress={()=>{enterNoteDetail(item)}}></Button>
+
+                    </View>
                   </View>
 
                 </View>

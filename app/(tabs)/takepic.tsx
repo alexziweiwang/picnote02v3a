@@ -79,7 +79,6 @@ export default function PictureTakingScreen() {
       <ThemedView
         style={{ 
           flex: 1, 
-          backgroundColor: 'pink',   //for testing only
         }}
       >
 
@@ -132,6 +131,9 @@ export default function PictureTakingScreen() {
         }}
       >
 
+        <View
+          style={{marginRight: 260}}
+        >
         <Button 
             onPress={() => {
               seturi("")
@@ -141,18 +143,20 @@ export default function PictureTakingScreen() {
             } 
             title="Retake"
         />
+        </View>
 
         <Image
           source={{ uri }}
           style={{ 
             height: 640,
             width: 360,
-            backgroundColor: 'purple'   //for testing only
           }}
         />
 
 
-       
+       <View
+        style={{marginLeft: 260, marginBottom: 20}}
+       >
         <Button
           onPress={()=>{
             router.push({
@@ -162,7 +166,7 @@ export default function PictureTakingScreen() {
           }}
           title="Next"
         ></Button>
-       
+       </View>
 
         
  

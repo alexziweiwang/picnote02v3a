@@ -41,28 +41,23 @@ export default function NoteCreationScreen() {
 
                                                         console.log("perm uri = [", permanentUri ,"]");
 
-//TODO -------------------------------
-
-
         await FileSystem.makeDirectoryAsync(dir, {
             intermediates: true,
         });
-
 
         await FileSystem.copyAsync({
             from: imageUri,
             to: permanentUri,
         });
 
-
         const info = await FileSystem.getInfoAsync(permanentUri);
-console.log("!!!!!!!!!!!!!!!!!!!!", info);
 
-//TODO -------------------------------
+        let titleContent = titleInput;
+        if (titleInput.length === 0) {
+            titleContent = new Date(dateInfo).toLocaleString().replaceAll(" ", "_");
+        }
 
-
-
-        saveToDatabase(titleInput, noteInput, permanentUri, dateInfo);
+        saveToDatabase(titleContent, noteInput, permanentUri, dateInfo);
 
         router.push( '/(tabs)');
 
