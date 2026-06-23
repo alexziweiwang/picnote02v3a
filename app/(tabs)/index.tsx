@@ -19,7 +19,7 @@ export default function HomeScreen() {
 
   const db = SQLite.openDatabaseSync('picnotes.db'); // table: notelist
 
-  const [myNoteList, setMyNoteList] = useState<Note[]>();
+  const [myNoteList, setMyNoteList] = useState<Note[]>([]);
 
   const [sortOption, setSortOption] = useState<string>("date_latest");
 
@@ -38,6 +38,17 @@ export default function HomeScreen() {
   };
 
   function fetchNotesFromDatabase() {
+
+    db.execSync(`
+            CREATE TABLE IF NOT EXISTS notelist (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                image_uri TEXT NOT NULL,
+                title TEXT,
+                note TEXT,
+                creation_date INTEGER
+    );
+    `);
+
     let res = db.getAllSync<Note>(`
       SELECT id, image_uri, title, note, creation_date
       FROM notelist;
@@ -106,6 +117,8 @@ export default function HomeScreen() {
       }}
 
     >
+
+      {myNoteList?.length > 0 && 
       <ThemedView style={style.titleContainer}>
           <ThemedText
             type="title"
@@ -114,13 +127,6 @@ export default function HomeScreen() {
           }}>
             My Notes</ThemedText>
 
-          <View>
-            
-            <Button title='TEST: clear all'
-              onPress={devReset}
-            ></Button>
-            
-          </View>
 
           <View
             style={{marginLeft: 290}}
@@ -143,13 +149,13 @@ export default function HomeScreen() {
 
                 <View
                   style={{
-                    "borderRadius": 2,
-                    "borderColor": "white",
-                    "height": 210,
-                    "backgroundColor": "#859299",
-                    "margin": 5,
-                    "padding": 5,
-                    "flexDirection": "row",
+                    borderRadius: 10,
+                    borderColor: 'white',
+                    height: 210,
+                    backgroundColor: "#859299",
+                    margin: 5,
+                    padding: 5,
+                    flexDirection: 'row',
                     
                   }}
                 >
@@ -192,7 +198,26 @@ export default function HomeScreen() {
           </ThemedView>
           
 
-      </ThemedView>
+      </ThemedView>}
+
+
+
+      {myNoteList?.length === 0
+      && <View
+        style={{
+          backgroundColor: '#5F6B72',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 100,
+          marginTop: 200,
+          borderRadius: 30,
+        }}
+      >
+        <Text
+          style={{fontSize: 30}}
+        >(No notes)</Text>
+      </View>}
+
 
     </ThemedView>
   );
