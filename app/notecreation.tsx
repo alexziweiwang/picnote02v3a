@@ -39,8 +39,6 @@ export default function NoteCreationScreen() {
 
         const permanentUri = `${dir}${picName}`;
 
-                                                        console.log("perm uri = [", permanentUri ,"]");
-
         await FileSystem.makeDirectoryAsync(dir, {
             intermediates: true,
         });

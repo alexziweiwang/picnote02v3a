@@ -78,12 +78,10 @@ export default function HomeScreen() {
     if (sortOption === 'date_earliest') {
       filterChange('date_latest');
       setSortOption('date_latest');
-      console.log("become late first");
     }
     if (sortOption === 'date_latest') {
       filterChange('date_earliest');
       setSortOption('date_earliest');
-      console.log("become early first");
     }
 
   }

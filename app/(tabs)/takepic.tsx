@@ -53,21 +53,17 @@ export default function PictureTakingScreen() {
   }
 
   const takeOnePicture = async () => {
-                                                                  console.log("pressed pic-taking");
 
     const photo = await cameraRef.current?.takePictureAsync();
     if (photo?.uri) {
       seturi(photo.uri);
 
-                                                                  console.log("uri = ", photo.uri);
       if (uri !== "") {
         setNoteCreationPhase(2);
-                                                                  console.log("\tnow with a valid pic: [", photo.uri, "]");
 
       }
       
     } else {
-                                                                  console.log("\tnot a valid uri");
     }
    
   };
