@@ -1,4 +1,5 @@
 import { useFocusEffect } from "expo-router";
+import { useRouter } from 'expo-router';
 
 import { useState } from "react";
 
@@ -9,12 +10,14 @@ import { StyleSheet } from "react-native";
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Fonts } from '@/constants/theme';
-import { FlatList, Image, Text, View } from 'react-native';
+import { Button, FlatList, Image, Text, View } from 'react-native';
 
 /**
  * Shows the list of notes
  */
 export default function HomeScreen() {
+  const router = useRouter();
+
   const db = SQLite.openDatabaseSync('picnotes.db'); // table: notelist
 
   const [myNoteList, setMyNoteList] = useState<Note[]>();
@@ -44,6 +47,20 @@ export default function HomeScreen() {
     setMyNoteList(res);
 
     
+  }
+
+  function enterNoteDetail(item: Note) {
+    //TODO with the item's info, into 
+
+    router.push({
+      pathname: '../notedetail',
+      params: {
+        image_uri: item.image_uri, 
+        title: item.title, 
+        note: item.note, 
+        creation_date: item.creation_date
+       }
+    });
   }
 
 
@@ -80,15 +97,30 @@ export default function HomeScreen() {
                     "borderColor": "white",
                     "height": 200,
                     "backgroundColor": "pink",
-                    "margin": 5
+                    "margin": 5,
+                    "padding": 5,
+                    "flexDirection": "row",
+                                        "overflow": "scroll"
+
 
                   }}
                 >
-                  <Image source={{ uri: item.image_uri }} />
-                  <Text>image-uri: [{item.image_uri}]</Text>
-                  <Text>{item.title}</Text>
-                  <Text>{item.note}</Text>
-                  <Text>{item.creation_date}</Text>
+                  <Image 
+                    source={{ uri: item.image_uri }} 
+                    style={{ 
+                      width: 100, 
+                      height: 200 }}
+                    resizeMode='contain'
+                  />
+
+                  <View>
+                    <Text>Title: {item.title}</Text>
+                    <Text>Note: {item.note}</Text>
+                    <Text>Date: {new Date(item.creation_date).toLocaleString()}</Text>
+
+                    <Button title='detail' onPress={()=>{enterNoteDetail(item)}}></Button>
+                  </View>
+
                 </View>
               )}
             />

@@ -31,7 +31,7 @@ export default function NoteCreationScreen() {
 
         const dateInfo = Date.now();
 
-        const picName = `titleInput+${dateInfo}.jpg`;
+        const picName = `${titleInput}_${dateInfo}.jpg`;
 
         const dir =
             (FileSystem as any).documentDirectory ??
@@ -39,6 +39,7 @@ export default function NoteCreationScreen() {
 
         const permanentUri = `${dir}${picName}`;
 
+                                                        console.log("perm uri = [", permanentUri ,"]");
 
 //TODO -------------------------------
 
@@ -53,6 +54,9 @@ export default function NoteCreationScreen() {
             to: permanentUri,
         });
 
+
+        const info = await FileSystem.getInfoAsync(permanentUri);
+console.log("!!!!!!!!!!!!!!!!!!!!", info);
 
 //TODO -------------------------------
 
